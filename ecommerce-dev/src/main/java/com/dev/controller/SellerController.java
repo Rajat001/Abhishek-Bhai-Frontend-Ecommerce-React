@@ -2,6 +2,7 @@ package com.dev.controller;
 
 
 import com.dev.domain.AccountStatus;
+import com.dev.exceptions.SellerException;
 import com.dev.model.Seller;
 import com.dev.model.SellerReport;
 import com.dev.model.VerificationCode;
@@ -76,7 +77,7 @@ public class SellerController {
 
         @GetMapping("/{id}")
         public ResponseEntity<Seller> getSellerById(@PathVariable Long id)
-            throws Exception{
+            throws SellerException{
             Seller seller = sellerService.getSellerById(id);
             return new ResponseEntity<>(seller , HttpStatus.OK);
         }
