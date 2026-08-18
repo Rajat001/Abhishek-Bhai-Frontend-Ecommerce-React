@@ -11,6 +11,7 @@ import com.dev.request.LoginRequest;
 import com.dev.response.AuthResponse;
 import com.dev.service.AuthService;
 import com.dev.service.EmailService;
+import com.dev.service.SellerReportService;
 import com.dev.service.SellerService;
 import com.dev.utils.OtpUtil;
 import jakarta.mail.MessagingException;
@@ -30,6 +31,7 @@ public class SellerController {
         private final VerificationCodeRepository verificationCodeRepository;
         private final AuthService authService;
         private final EmailService emailService;
+        private final SellerReportService sellerReportService;
 
         @PostMapping("/login")
         public ResponseEntity<AuthResponse> loginSeller(@RequestBody LoginRequest req) throws Exception {
@@ -91,14 +93,14 @@ public class SellerController {
         }
 
 
-//        @GetMapping("/report")
-//        public ResponseEntity<SellerReport> getSellerReport(
-//                @RequestHeader("Authorization") String jwt) throws Exception{
+        @GetMapping("/report")
+        public ResponseEntity<SellerReport> getSellerReport(
+                @RequestHeader("Authorization") String jwt) throws Exception{
 //            String email = jwtProvider.getEmailFromJwtToken(jwt);
-//            Seller seller = sellerService.getSellerByEmail(email);
-//            SellerReport report = sellerReportService.getSellerReport(seller);
-//            return new ResponseEntity<>(report , HttpStatus.OK);
-//        }
+            Seller seller = sellerService.getSellerProfile(jwt);
+            SellerReport report = sellerReportService.getSellerReport(seller);
+            return new ResponseEntity<>(report , HttpStatus.OK);
+        }
 
         @GetMapping
         public ResponseEntity<List<Seller>> getAllSellers(
