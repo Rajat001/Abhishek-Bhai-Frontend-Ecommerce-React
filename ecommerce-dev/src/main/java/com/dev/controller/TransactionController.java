@@ -24,18 +24,17 @@ public class TransactionController {
 
     @GetMapping("/seller")
     public ResponseEntity<List<Transaction>> getTransactionBySeller(
-            @RequestHeader("Authorization") String jwt ) throws Exception{
+            @RequestHeader("Authorization") String jwt) throws Exception {
 
-            Seller seller = sellerService.getSellerProfile(jwt);
+        Seller seller = sellerService.getSellerProfile(jwt);
 
-            List<Transaction> transactions = transactionService.getTransactionBySellerId(seller);
-            return ResponseEntity.ok(transactions);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<Transaction>> getAllTransaction(){
-        List<Transaction> transactions = transactionService.getAllTransaction();
+        List<Transaction> transactions = transactionService.getTransactionBySellerId(seller);
         return ResponseEntity.ok(transactions);
     }
 
+    @GetMapping
+    public ResponseEntity<List<Transaction>> getAllTransaction() {
+        List<Transaction> transactions = transactionService.getAllTransaction();
+        return ResponseEntity.ok(transactions);
+    }
 }
