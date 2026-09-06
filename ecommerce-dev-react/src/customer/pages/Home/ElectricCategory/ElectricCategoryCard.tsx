@@ -1,0 +1,13 @@
+import React from "react";
+
+const ElectricCategoryCard = () => {
+    return (
+        <div>
+            <img className="object-contain h-10" src="http://rukminim2.flixcart.com/image/312/312/xif0q/computer/x/9/j/-original-imahyjzh7m2zsqdg.jpeg?q=70"
+             alt="Electric Category" />
+             <h2 className="font-semibold text-sm">Laptop</h2>
+        </div>
+    );
+};
+
+export default ElectricCategoryCard;
