@@ -3,19 +3,54 @@ import { teal } from '@mui/material/colors'
 import React, { useState } from 'react'
 import { colors } from '../../../data/Filter/color'
 
+// Case 1
+import { useSearchParams } from 'react-router-dom'
+import { price } from '../../../data/Filter/price'
+import { discount } from '../../../data/Filter/discount'
+
 const FilterSection = () => {
 
     const [expendColor, setExpendColor] = useState(false);
+
+    
+    // Case 2
+    const[searchParams , setSearchParams] = useSearchParams();
+
+
+
     const handleColorToggle = () => {
         setExpendColor(!expendColor);
     };
+
+
+  
+    const updateFilterParams = (e: any) => {
+        const{value , name} = e.target;
+        if(value){
+            searchParams.set(name,value);
+        }else{
+            searchParams.delete(name);
+        }
+
+        setSearchParams(searchParams);
+    };
+
+
+    const clearAllFilters = () => {
+        console.log("clearAllFilters" , searchParams)
+        searchParams.forEach((value: any, key: any) => {
+            searchParams.delete(key);
+        });
+        setSearchParams(searchParams);
+    }
+
 
     return (
         <div className='-z-50 space-y-5 bg-white'>
             <div className='flex items-center justify-between h-[40px] px-9 lg:border-r'>
                 <p className='text-lg font-semibold'> Filters </p>
 
-                <Button size='small' className='text-teal-600 cursor-pointer font-semibold'>
+                <Button onClick={clearAllFilters} size='small' className='text-teal-600 cursor-pointer font-semibold'>
                         Clear All
                 </Button>
             </div>
@@ -42,10 +77,10 @@ const FilterSection = () => {
         aria-labelledby="color"
         defaultValue=""
         name="color"
+        onChange={updateFilterParams}
     >
         {colors.slice(0,expendColor?colors.length:5).map((item) => (
             <FormControlLabel
-                key={item.name}
                 value={item.name}
                 control={<Radio />}
                 label={
@@ -74,6 +109,82 @@ const FilterSection = () => {
             </button>
         </div>
             </section>
+
+
+            <Divider /> 
+
+
+        {/* New Section Start 1 */}
+        <section>
+            <FormControl>
+                <FormLabel
+                sx={{
+                    fontSize : "16px",
+                    fontWeigth : "bold",
+                    pb : "14px",
+                    color : teal[600],
+                }}
+                className='text-2xl font-semibold'
+                id="price"    
+                >
+                    Price
+                </FormLabel>
+
+                <RadioGroup
+                name="price"
+                onChange={updateFilterParams}
+                areia-labelBy="price"
+                defaultValue=""
+                >
+                    {price.map((item, index) =>(
+                        <FormControlLabel
+                        key={item.name}
+                        value={item.value}
+                        control={<Radio size="small" />}
+                        label={item.name}
+                        />
+                        
+                    ))}
+                </RadioGroup>
+            </FormControl>
+        </section>
+        {/* New Section End 1 */}
+
+             <Divider/>
+
+        {/* New Section Start 1 */}            
+              <section>
+                <FormControl
+                sx={{
+                    fontSize : "16px",
+                    fontWeight:"bold",
+                    pb : "14px",
+                    color : teal[600],
+                }}
+                className="text-2xl font-semibold"
+                id="brand"
+                >
+                    Discount
+                </FormControl>
+                <RadioGroup
+                name="discount"
+                onChange={updateFilterParams}
+                aria-labelledby='brand'
+                defaultValue="">
+
+                    {discount.map((item, index) => (
+                        <FormControlLabel
+                        key={item.name}
+                        value={item.value}
+                        control={<Radio size="small"/>}
+                        label={item.name}
+                        />
+                    ))}
+                </RadioGroup>
+                
+                </section>      
+        {/* New Section Start 2 */}     
+        
          </div>
 
         </div>
