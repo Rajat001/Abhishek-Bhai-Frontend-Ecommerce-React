@@ -7,12 +7,16 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { AddShoppingCart, FavoriteBorder, Storefront } from '@mui/icons-material';
 import CategorySheet from './CategorySheet';
 import { mainCategory } from '../../../data/category/mainCategory';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {  
     const theme = useTheme();
     const isLarge = useMediaQuery(theme.breakpoints.up("lg"))
     const [selectedCategory, setSelectedCategory] = useState("men");
     const [showCategorySheet, setShowCategorySheet] = useState(false);
+    const navigate=useNavigate()
+
+
     return(
         <>
             <Box className="sticky top-0 left-0 right-0 bg-white" sx={{zIndex:2}}>
@@ -23,7 +27,7 @@ const Navbar = () => {
                                 <MenuIcon />
                             </IconButton>}
 
-                            <h1 className='logo cursor-pointer text-lg md:text-2xl text-primary-color'>Sajeelirani Ecommerce </h1>
+                            <h1 onClick={()=>navigate("/")} className='logo cursor-pointer text-lg md:text-2xl text-primary-color'>Sajeelirani Ecommerce </h1>
                         </div>
                     </div>
 
@@ -50,7 +54,7 @@ const Navbar = () => {
                         </IconButton>
 
                         {
-                            false ? <Button className='flex items-center gap-2'> 
+                            true ? <Button onClick={() => navigate("/account/orders")} className='flex items-center gap-2'> 
                             <Avatar
                             sx={{width: 29, height: 29}}
                             src='https://cdn.pixabay.com/photo/2015/04/15/09/28/head-723540_640.png'/> 
@@ -62,14 +66,14 @@ const Navbar = () => {
                             <FavoriteBorder sx={{fontSize: 29}} />
                         </IconButton>
 
-                        <IconButton>
+                        <IconButton onClick={() => navigate("/cart")}>
                             <AddShoppingCart className='text-gray-700' sx={{fontSize: 29}} />
                         </IconButton>
 
                         {
                             isLarge 
                         && 
-                            <Button startIcon={<Storefront />} variant='outlined'>
+                            <Button onClick={()=> navigate("/become-seller")} startIcon={<Storefront />} variant='outlined'>
                             Become Seller 
                             </Button>
                         } 
