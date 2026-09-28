@@ -46,7 +46,7 @@ const menu = [
     },
         {
         name: "Deals",
-        path: "admin/deals",
+        path: "/admin/deals",
         icon: <LocalOffer className="text-primary-color" />,
         activeIcon: <LocalOffer className="text-white"/>
     },
@@ -75,23 +75,3 @@ const AdminDrawerList = ({toggleDrawer}: any) => {
 }
 
 export default AdminDrawerList
-
-// import React from "react";
-// import DrawerList from "../../component/DrawerList";
-
-// const AdminDrawerList = ({
-//     menu = [],
-//     menu2 = [],
-//     toggleDrawer
-// }: any) => {
-
-//     return (
-//         <DrawerList
-//             menu={menu}
-//             menu2={menu2}
-//             toggleDrawer={toggleDrawer}
-//         />
-//     );
-// };
-
-// export default AdminDrawerList;
